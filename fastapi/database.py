@@ -1,8 +1,8 @@
 from databases import Database
 
 
-POSTGRES_USER = "temp"
-POSTGRES_PASSWORD = "temp"
+POSTGRES_USER = "siwat"
+POSTGRES_PASSWORD = "admin123"
 POSTGRES_DB = "advcompro"
 POSTGRES_HOST = "db"
 
