@@ -1,7 +1,7 @@
 // nextjs/pages/login.jsx
 import { useState } from "react";
 import { useRouter } from "next/router";
-import "./Login.css";
+import "./styles/login.css";
 
 export default function Login() {
   const router = useRouter();
@@ -11,7 +11,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:8000/api/auth/login", {
+      const res = await fetch("http://localhost:8000/login_page", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
