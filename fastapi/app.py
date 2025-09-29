@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from database import *
 from routes.users import router
 from routes.book import router as books_router
-from routes.equipment_stock import equipment_router ########
+from routes.equipment_stock import router as equipment_router ########
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()

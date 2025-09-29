@@ -53,3 +53,34 @@ async def delete_equipment(equipment_id: int):
   query = "DELETE FROM equipment_stock WHERE equipment_id=:equipment_id"
   await database.execute(query, {"equipment_id": equipment_id})
   return {"message": f"Equipment {equipment_id} deleted"}
+
+
+@router.get("/equipment_stock/summary")
+async def get_summary():
+  # Example: return total items and total quantity
+  query_total_items = "SELECT COUNT(*) FROM equipment_stock"
+  query_total_quantity = "SELECT SUM(quantity) FROM equipment_stock"
+  total_items = await database.fetch_val(query_total_items)
+  total_quantity = await database.fetch_val(query_total_quantity)
+  return {"total_items": total_items, "total_quantity": total_quantity}
+
+@router.get("/equipment_stock/location_summary")
+async def get_location_summary():
+  # Example: return total items and total quantity
+  # query_total_location = "SELECT DISTINCT location FROM equipment_stock"
+  # query_total_quantity = "SELECT SUM(quantity) FROM equipment_stock"
+  # total_location = await database.fetch_val(query_total_location)
+  # total_quantity = await database.fetch_val(query_total_quantity)
+  # return [{"total_location": total_location, "total_quantity": total_quantity}]
+    query = """
+        SELECT location, SUM(quantity) AS total
+        FROM equipment_stock
+        GROUP BY location
+        ORDER BY location;
+    """
+    rows = await database.fetch_all(query)
+    
+    # Convert to list of dicts
+    result = [{"location": row["location"], "total": row["total"]} for row in rows]
+    return result
+  
